@@ -1,0 +1,12 @@
+{
+  "0": "compilerOptions",
+  "1": "package.json",
+  "2": "layout.tsx",
+  "3": "page.tsx",
+  "4": "devDependencies",
+  "5": "next-env.d.ts",
+  "6": "dependencies",
+  "7": "scripts",
+  "8": "tsconfig.json",
+  "9": "Move well after 50, from home."
+}

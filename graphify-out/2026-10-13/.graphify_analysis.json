@@ -1,0 +1,147 @@
+{
+  "communities": {
+    "0": [
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowjs",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_incremental",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_plugins",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target"
+    ],
+    "1": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_version",
+      "ref_react_dom",
+      "ref_types_node",
+      "ref_types_react",
+      "ref_types_react_dom",
+      "ref_typescript"
+    ],
+    "2": [
+      "app_globals",
+      "app_layout",
+      "app_layout_metadata",
+      "app_layout_rootlayout",
+      "next_config",
+      "next_config_nextconfig",
+      "ref_next"
+    ],
+    "3": [
+      "app_page",
+      "app_page_areas",
+      "app_page_home",
+      "app_page_home_handlesubmit",
+      "app_page_redflags",
+      "ref_react"
+    ],
+    "4": [
+      "package_devdependencies",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_typescript"
+    ],
+    "5": [
+      "next_env_d",
+      "next_env_d_rationale_6",
+      "next_types_root_params_d",
+      "next_types_routes_d"
+    ],
+    "6": [
+      "package_dependencies",
+      "package_dependencies_next",
+      "package_dependencies_react",
+      "package_dependencies_react_dom"
+    ],
+    "7": [
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_start"
+    ],
+    "8": [
+      "tsconfig",
+      "tsconfig_exclude",
+      "tsconfig_include"
+    ]
+  },
+  "cohesion": {
+    "0": 0.13333333333333333,
+    "1": 0.2222222222222222,
+    "2": 0.2857142857142857,
+    "3": 0.3333333333333333,
+    "4": 0.4,
+    "5": 0.5,
+    "6": 0.5,
+    "7": 0.5,
+    "8": 0.6666666666666666
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 15
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 4
+    },
+    {
+      "id": "ref_next",
+      "label": "next",
+      "degree": 3
+    },
+    {
+      "id": "app_page_home",
+      "label": "Home()",
+      "degree": 2
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 2
+    },
+    {
+      "id": "app_layout_metadata",
+      "label": "metadata",
+      "degree": 1
+    },
+    {
+      "id": "app_page_areas",
+      "label": "areas",
+      "degree": 1
+    },
+    {
+      "id": "app_page_redflags",
+      "label": "redFlags",
+      "degree": 1
+    },
+    {
+      "id": "next_env_d_rationale_6",
+      "label": "NOTE: This file should not be edited",
+      "degree": 1
+    },
+    {
+      "id": "next_config_nextconfig",
+      "label": "nextConfig",
+      "degree": 1
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

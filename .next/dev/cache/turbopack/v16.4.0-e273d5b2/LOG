@@ -49,3 +49,28 @@ FAM | META SEQ | SST SEQ         | RANGE
   0 | 00000027 | 00000026 SST    |                                                                             O                        | c44bdff4074eecdb-c44bdff4074eecdb (0 MiB, fresh, 38 bytes, 1 entries, 0 tombstones)
   1 | 00000028 | 00000024 SST    | [==================================================================================================] | 00dbeb9cd07003b2-ffb6efee15aa5bfc (0 MiB, fresh, 187911 bytes, 678 entries, 0 tombstones)
   2 | 00000029 | 00000025 SST    |  [=================================================================================================] | 037959ddaa579a63-ffb6efee15aa5bfc (0 MiB, fresh, 379543 bytes, 53 entries, 0 tombstones)
+Time 2026-10-12T10:06:23.42956Z
+Commit 00000037 2884 keys in 14ms 436µs
+FAM | META SEQ | SST SEQ         | RANGE
+  0 | 00000034 | 00000033 SST    |                                                                             O                        | c44bdff4074eecdb-c44bdff4074eecdb (0 MiB, fresh, 38 bytes, 1 entries, 0 tombstones)
+  3 | 00000035 | 00000031 SST    | [==================================================================================================] | 0063dddba0bdf9e6-fee9f3e43dc58e6b (0 MiB, fresh, 1809 bytes, 148 entries, 0 tombstones)
+  1 | 00000036 | 00000032 SST    | [==================================================================================================] | 001e2a9a9596b819-ffd08c02adaeb711 (0 MiB, fresh, 371294 bytes, 2413 entries, 0 tombstones)
+  2 | 00000037 | 00000030 SST    | [==================================================================================================] | 00e0f9a7cf7e1e29-ffb6efee15aa5bfc (0 MiB, fresh, 309970 bytes, 322 entries, 0 tombstones)
+Time 2026-10-12T11:03:35.914566Z
+Commit 00000043 367 keys in 30ms 15µs
+FAM | META SEQ | SST SEQ         | RANGE
+  0 | 00000041 | 00000040 SST    |                                                                             O                        | c44bdff4074eecdb-c44bdff4074eecdb (0 MiB, fresh, 38 bytes, 1 entries, 0 tombstones)
+  2 | 00000042 | 00000038 SST    |                                                                                                    O | ff078261c00f822a-ff078261c00f822a (0 MiB, fresh, 565 bytes, 1 entries, 0 tombstones)
+  1 | 00000043 | 00000039 SST    | [==================================================================================================] | 003288a7c73f4727-ffd08c02adaeb711 (0 MiB, fresh, 155899 bytes, 365 entries, 0 tombstones)
+Time 2026-10-12T11:49:31.478856Z
+Commit 00000047 4 keys in 25ms 168µs
+FAM | META SEQ | SST SEQ         | RANGE
+  0 | 00000046 | 00000045 SST    |                                                                             O                        | c44bdff4074eecdb-c44bdff4074eecdb (0 MiB, fresh, 38 bytes, 1 entries, 0 tombstones)
+  1 | 00000047 | 00000044 SST    |                         [=============================================]                              | 3e2445bbb871e339-b395eeb23195c199 (0 MiB, fresh, 1073 bytes, 3 entries, 0 tombstones)
+Time 2026-10-13T09:38:01.678061Z
+Commit 00000055 770 keys in 39ms 850µs
+FAM | META SEQ | SST SEQ         | RANGE
+  0 | 00000052 | 00000051 SST    |                                                                             O                        | c44bdff4074eecdb-c44bdff4074eecdb (0 MiB, fresh, 38 bytes, 1 entries, 0 tombstones)
+  3 | 00000053 | 00000049 SST    |                           [================================================================]         | 44ff905d8baf6932-e96415f46705c0b8 (0 MiB, fresh, 177 bytes, 12 entries, 0 tombstones)
+  2 | 00000054 | 00000048 SST    | [==================================================================================================] | 015bd9dd16b178ce-ffb6efee15aa5bfc (0 MiB, fresh, 503029 bytes, 113 entries, 0 tombstones)
+  1 | 00000055 | 00000050 SST    | [==================================================================================================] | 00dbeb9cd07003b2-ffd08c02adaeb711 (0 MiB, fresh, 201746 bytes, 644 entries, 0 tombstones)

@@ -1,17 +1,17 @@
-# Graph Report - momentum  (2026-10-12)
+# Graph Report - momentum  (2026-10-13)
 
 ## Corpus Check
-- 8 files · ~25,777 words
+- 8 files · ~28,081 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 1 file(s) not represented in the graph (top: .css 1)
+- Unclassified: 2 file(s) not represented in the graph (top: (none) 1, .css 1)
 
 ## Summary
-- 70 nodes · 65 edges · 11 communities (8 shown, 3 thin omitted)
+- 74 nodes · 71 edges · 11 communities (8 shown, 3 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7988e08d`
+- Built from commit: `047e531c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -29,15 +29,15 @@
 
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 15 edges
-2. `scripts` - 4 edges
-3. `Move well after 50, from home.` - 4 edges
-4. `What you get` - 4 edges
-5. `Home()` - 3 edges
+2. `Home()` - 5 edges
+3. `scripts` - 4 edges
+4. `Move well after 50, from home.` - 4 edges
+5. `What you get` - 4 edges
 6. `next` - 3 edges
-7. `react` - 2 edges
-8. `Membership` - 2 edges
-9. `metadata` - 1 edges
-10. `areas` - 1 edges
+7. `ArrowIcon()` - 2 edges
+8. `CheckIcon()` - 2 edges
+9. `react` - 2 edges
+10. `Membership` - 2 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -60,8 +60,8 @@ Cohesion: 0.29
 Nodes (3): metadata, nextConfig, next
 
 ### Community 3 - "page.tsx"
-Cohesion: 0.25
-Nodes (5): areas, AssessmentResult, Home(), redFlags, react
+Cohesion: 0.20
+Nodes (9): ArrowIcon(), AssessmentResult, CheckIcon(), conditions, faqs, Home(), plans, redFlags (+1 more)
 
 ### Community 4 - "devDependencies"
 Cohesion: 0.40
@@ -81,19 +81,19 @@ Nodes (8): Exercise videos, Home exercise kit, Membership, Momentum After 50+ la
 
 ## Knowledge Gaps
 - **5 isolated node(s):** `react-dom`, `@types/node`, `@types/react`, `@types/react-dom`, `typescript`
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 54 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 56 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `react` connect `page.tsx` to `package.json`?**
-  _High betweenness centrality (0.087) - this node is a cross-community bridge._
+  _High betweenness centrality (0.121) - this node is a cross-community bridge._
 - **What connects `react-dom`, `@types/node`, `@types/react` to the rest of the system?**
   _5 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
 - **Why does `next` connect `layout.tsx` to `package.json`?**
-  _High betweenness centrality (0.080) - this node is a cross-community bridge._
+  _High betweenness centrality (0.081) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `devDependencies` to `package.json`?**
   _High betweenness centrality (0.057) - this node is a cross-community bridge._

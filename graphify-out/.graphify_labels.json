@@ -6,8 +6,7 @@
   "4": "devDependencies",
   "5": "next-env.d.ts",
   "6": "dependencies",
-  "7": "scripts",
-  "8": "tsconfig.json",
+  "7": "route.ts",
   "9": "Move well after 50, from home.",
   "10": "IMAGE_SOURCES.md"
 }

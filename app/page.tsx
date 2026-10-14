@@ -1,6 +1,14 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+
+const qualifications = [
+  "FIFA Diploma in Football Medicine",
+  "Diploma in Sports Physiotherapy (IOC)",
+  "TEDx Speaker",
+  "Team Physio – TG20 Men’s Premier League",
+  "Former State Cricketer",
+];
 
 const conditions = [
   {
@@ -72,13 +80,6 @@ const faqs = [
   ["Is this a replacement for seeing a physiotherapist?", "No. Online guidance supports your care, but it does not replace an individual clinical assessment. We will guide you to the right next step."],
 ];
 
-type AssessmentResult = {
-  area: string;
-  firstName: string;
-  hasSafetyConcern: boolean;
-  summary: string;
-};
-
 function ArrowIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 20 20" className="icon-arrow">
@@ -97,11 +98,25 @@ function CheckIcon() {
 
 export default function Home() {
   const [selectedArea, setSelectedArea] = useState("Knee pain");
-  const [assessmentResult, setAssessmentResult] = useState<AssessmentResult | null>(null);
   const [phoneError, setPhoneError] = useState("");
-  const [copyStatus, setCopyStatus] = useState("Copy summary");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedName, setSubmittedName] = useState("");
+  const [showQualifications, setShowQualifications] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as HTMLElement | null;
+      if (!target?.closest(".qualifications-wrapper")) {
+        setShowQualifications(false);
+      }
+    }
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -109,40 +124,35 @@ export default function Home() {
 
     if (phone.length !== 10) {
       setPhoneError("Enter a 10-digit mobile number so the team can reach you.");
-      setAssessmentResult(null);
+      setIsSubmitted(false);
       return;
     }
 
     setPhoneError("");
-    const area = String(formData.get("area") ?? selectedArea);
+    setSubmissionError("");
     const name = String(formData.get("name") ?? "").trim();
-    const firstName = name.split(/\s+/)[0] || "there";
-    const checkedFlags = redFlags.filter((_, index) => formData.get(`flag-${index}`) === "on");
-    const hasSafetyConcern = checkedFlags.length > 0;
-    const summary = [
-      "Momentum After 50+ assessment",
-      `Name: ${name || "-"}`,
-      `Age: ${formData.get("age") || "-"}`,
-      `Mobile: ${phone}`,
-      `City: ${formData.get("city") || "-"}`,
-      `Problem area: ${area}`,
-      `How long: ${formData.get("duration") || "-"}`,
-      `Pain today: ${formData.get("pain") || "-"}/10`,
-      `Safety symptoms selected: ${checkedFlags.length}`,
-      `Goal: ${formData.get("goal") || "-"}`,
-    ].join("\n");
+    const firstName = name.split(/\s+/)[0] || "";
 
-    setCopyStatus("Copy summary");
-    setAssessmentResult({ area, firstName, hasSafetyConcern, summary });
-  }
-
-  async function copySummary() {
-    if (!assessmentResult) return;
+    setIsSubmitting(true);
     try {
-      await navigator.clipboard.writeText(assessmentResult.summary);
-      setCopyStatus("Copied");
+      const response = await fetch("/api/assessments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.error || "Submission failed");
+      }
+      setSubmittedName(firstName);
+      setIsSubmitted(true);
+      form.reset();
+      setSelectedArea("Knee pain");
     } catch {
-      setCopyStatus("Select the summary to copy");
+      setSubmissionError("We couldn't save your assessment. Please try again.");
+      setIsSubmitted(false);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -222,7 +232,7 @@ export default function Home() {
               <div className="plan-top"><h3>{plan.name}</h3><div className="plan-price"><strong>{plan.price}</strong><span>/ month</span></div></div>
               <p>{plan.description}</p>
               <ul>{plan.features.map((feature) => <li key={feature}><CheckIcon /> {feature}</li>)}</ul>
-              <a className={plan.featured ? "button button-primary" : "button button-outline"} href="#assessment">Choose this path <ArrowIcon /></a>
+              {/* <a className={plan.featured ? "button button-primary" : "button button-outline"} href="#assessment">Choose this path <ArrowIcon /></a> */}
             </article>
           ))}
         </div>
@@ -240,9 +250,15 @@ export default function Home() {
           <div className="form-row"><label>How long has this bothered you?<select name="duration"><option>Under 1 month</option><option>1 to 6 months</option><option>6 months to 2 years</option><option>Over 2 years</option></select></label><label>Pain today, 0 to 10<input name="pain" type="number" min="0" max="10" placeholder="0 to 10" inputMode="numeric" /></label></div>
           <label>What do you want to do again?<textarea name="goal" rows={3} placeholder="Climb stairs, sleep through the night, play with grandchildren" /></label>
           <fieldset className="safety-fieldset"><legend>Before you begin</legend><p className="field-help">Tick anything that applies. These symptoms need a doctor&apos;s opinion before exercise.</p><div className="checkbox-list">{redFlags.map((flag, index) => <label key={flag}><input name={`flag-${index}`} type="checkbox" /><span>{flag}</span></label>)}</div></fieldset>
-          <button className="button button-primary form-submit" type="submit">Get my programme match <ArrowIcon /></button>
-          <p className="form-privacy"><span aria-hidden="true">●</span> Private, respectful and used only to prepare your next step.</p>
-          {assessmentResult && <div className={`form-result ${assessmentResult.hasSafetyConcern ? "form-result-warning" : "form-result-success"}`} role="alert"><strong>{assessmentResult.hasSafetyConcern ? "Please speak with a doctor first." : `Your ${assessmentResult.area.toLowerCase()} starting point is ready.`}</strong><span>{assessmentResult.hasSafetyConcern ? `Thanks, ${assessmentResult.firstName}. Once you are cleared, come back and we will place you in the right programme.` : `Thank you, ${assessmentResult.firstName}. A Momentum team member will follow up with your next step.`}</span><pre className="form-summary">{assessmentResult.summary}</pre><button className="summary-button" type="button" onClick={copySummary}>{copyStatus}</button></div>}
+           <button className="button button-primary form-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "Saving your assessment…" : "Get my programme match"} {!isSubmitting && <ArrowIcon />}</button>
+           <p className="form-privacy"><span aria-hidden="true">●</span> Private, respectful and used only to prepare your next step.</p>
+           {submissionError && <p className="field-error" role="alert">{submissionError}</p>}
+           {isSubmitted && (
+             <div className="form-result form-result-success" role="alert">
+               <strong>{submittedName ? `Thank you, ${submittedName}!` : "Thank you!"}</strong>
+               <span>Thanks for your interest, our team will contact you shortly.</span>
+             </div>
+           )}
         </form>
       </section>
 
@@ -253,16 +269,57 @@ export default function Home() {
 
       <section className="team-section section-space" id="team">
         <div className="team-image"><img src="/physio-progress-check.jpg" alt="A clinician checking a patient's shoulder movement" /><span className="team-caption">Care that notices<br /><strong>the small wins.</strong></span></div>
-        <div className="team-copy"><div className="section-label">Meet your clinical team</div><h2>Experienced care. <em>Humanly delivered.</em></h2><p>Momentum is created by physiotherapists who understand that ageing well is not about chasing a number. It is about staying present for the people, places and routines that make your life yours.</p><div className="clinician-row"><div className="avatar">AM</div><div><strong>Dr. Ananya Mehta</strong><span>Founder · Sports Physiotherapist</span></div><a href="#assessment" aria-label="Meet the Momentum clinical team"><ArrowIcon /></a></div><a className="text-link" href="#assessment">See qualifications and approach <ArrowIcon /></a></div>
+        <div className="team-copy">
+          <div className="section-label">Meet your clinical team</div>
+          <h2>Experienced care. <em>Humanly delivered.</em></h2>
+          <p>Momentum is created by physiotherapists who understand that ageing well is not about chasing a number. It is about staying present for the people, places and routines that make your life yours.</p>
+          <div className="clinician-row">
+            <div className="avatar">ST</div>
+            <div>
+              <strong>Dr. Sneha Tiwari</strong>
+              <span>Founder · Sports Physiotherapist</span>
+            </div>
+            <a href="#assessment" aria-label="Meet the Momentum clinical team"><ArrowIcon /></a>
+          </div>
+          <div className="qualifications-wrapper">
+            <button
+              type="button"
+              className="text-link qualifications-trigger"
+              aria-haspopup="dialog"
+              aria-expanded={showQualifications}
+              onClick={() => setShowQualifications((prev) => !prev)}
+            >
+              See qualifications and approach <ArrowIcon />
+            </button>
+            <div
+              className={`qualifications-tooltip ${showQualifications ? "is-active" : ""}`}
+              role="region"
+              aria-label="Dr. Sneha Tiwari qualifications"
+            >
+              <div className="qualifications-header">
+                <span className="qualifications-kicker">Clinical Credentials</span>
+                <strong>Dr. Sneha Tiwari</strong>
+              </div>
+              <ul className="qualifications-list">
+                {qualifications.map((item) => (
+                  <li key={item}>
+                    <CheckIcon />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section className="quote-section section-space"><div className="quote-mark">“</div><blockquote>Momentum helped me stop waiting for a good day. I now know how to make one.</blockquote><p>— Early member, Bengaluru</p><div className="quote-dots"><span className="is-active" /><span /><span /></div></section>
+      <section className="quote-section section-space"><div className="quote-mark">“</div><blockquote>Momentum helped me stop waiting for a good day. I now know how to make one.</blockquote><p>— Shalini, Bengaluru</p><div className="quote-dots"><span className="is-active" /><span /><span /></div></section>
 
       <section className="faq-section section-space"><div><div className="section-label">A few useful answers</div><h2>Good questions<br /><em>are welcome.</em></h2><a className="text-link" href="#assessment">Still curious? Talk to us <ArrowIcon /></a></div><div className="faq-list">{faqs.map(([question, answer], index) => <details open={index === 0} key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
 
       <footer className="footer-section">
         <div className="footer-cta"><div className="section-label">Your next chapter starts here</div><h2>More movement.<br /><em>More life.</em></h2><p>Start with a conversation about what you want back.</p><div className="footer-actions"><a className="button button-light" href="#assessment">Book an assessment <ArrowIcon /></a><a className="whatsapp-link" href="https://wa.me/910000000000" target="_blank" rel="noreferrer">WhatsApp support <ArrowIcon /></a></div></div>
-        <div className="footer-bottom"><span className="footer-brand">Momentum After 50+</span><span>Healthy ageing and physiotherapy, for real life.</span><span>© 2026 Momentum</span></div>
+        <div className="footer-bottom"><span className="footer-brand">Momentum After 50+</span><span>Healthy ageing and physiotherapy, for real life.</span><span>© 2026 Momentum Sports clinic</span></div>
         <p className="medical-note">Momentum provides exercise guidance and does not replace a medical diagnosis. Stop an exercise that increases sharp pain and speak to your doctor. Online exercises do not replace an individual clinical assessment.</p>
       </footer>
 

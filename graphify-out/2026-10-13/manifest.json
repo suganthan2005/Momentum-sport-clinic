@@ -6,14 +6,14 @@
     "semantic_hash": ""
   },
   "app/page.tsx": {
-    "mtime": 1791798163.1272802,
-    "seen": 1791798278.313143,
-    "ast_hash": "bdf3bed19c760ef123c25e770c27e64e",
+    "mtime": 1791884077.4533772,
+    "seen": 1791884502.979913,
+    "ast_hash": "7a2870ac37059bb9cc6a5839a069668c",
     "semantic_hash": ""
   },
   "next-env.d.ts": {
-    "mtime": 1791793826.635547,
-    "seen": 1791798278.313146,
+    "mtime": 1791884478.3583336,
+    "seen": 1791884502.979915,
     "ast_hash": "8195d2c60ce847a459ae9d308d6a5724",
     "semantic_hash": ""
   },
@@ -24,10 +24,10 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1791789737.5521352,
-    "seen": 1791792015.746359,
-    "ast_hash": "45c2edce196600021345e7e8b85b2ef9",
-    "semantic_hash": "45c2edce196600021345e7e8b85b2ef9"
+    "mtime": 1791885922.576643,
+    "seen": 1791886036.712832,
+    "ast_hash": "d47695c551fc9a7569cc8bcf500d1677",
+    "semantic_hash": ""
   },
   "tsconfig.json": {
     "mtime": 1791789759.359198,
@@ -99,6 +99,12 @@
     "mtime": 1791794371.029596,
     "seen": 1791798278.313165,
     "ast_hash": "4f500948a0f4028b983fcab560b9d8b0",
+    "semantic_hash": ""
+  },
+  "momentum_logo favicon.jpeg": {
+    "mtime": 1791787806.2926645,
+    "seen": 1791884502.9799218,
+    "ast_hash": "0267afdaa0aa047ba527475737d06fa8",
     "semantic_hash": ""
   }
 }
